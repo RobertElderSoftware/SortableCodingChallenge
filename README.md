@@ -137,3 +137,46 @@ Note that at around 407MB of listings the JVM ran out of memory. The current imp
 4)  In order to remove unuseful information regexes were used to remove information like focal point, or zoom statistics that can get confused with product numbers.  These regexes use some inefficient operators like "\*" that can have exponential complexity in the worst case.  In our case they are applied to strings that are very simple so the cost is reasonable, however degenerate erroneous inputs (such as a title that is thousands of bytes) could cause suprize hangs due to the regex getting stuck in backtrackin.  In addition this could be a source of algorithmic complexity attacks:
 
 [Algorithmic Complexity Attack](http://en.wikipedia.org/wiki/Algorithmic_complexity_attack)
+
+
+# Possible Mistake in Input
+
+The input product Data contains two distinct product entries:
+
+line 186 {"product\_name":"Samsung-SL202","manufacturer":"Samsung","model":"SL202","announced-date":"2009-02-16T19:00:00.000-05:00"}
+
+line 258 {"product\_name":"Samsung\_SL202","manufacturer":"Samsung","model":"SL202","announced-date":"2009-02-16T19:00:00.000-05:00"}
+
+It seems like a mistake to treat these two entries as different products since they only difference is a single '-' versus '\_' character.
+
+It is possible that this data was generated from a more verbose data set where there was a clear distinguishing feature, but I believe that in the context of this challenge these two products should be treated the same.  Here are the listings.txt entries for the SL202:
+
+ 4909 {"title":"Samsung SL202 10MP Digital Camera with 3x Optical Zoom and 2.7 inch LCD (Pink)","manufacturer":"Samsung","currency":"USD","price":"83.76"}
+
+ 4910 {"title":"Samsung SL202 10MP Digital Camera with 3x Optical Zoom and 2.7 inch LCD (Pink)","manufacturer":"Samsung","currency":"USD","price":"137.75"}
+
+ 5062 {"title":"Samsung SL202 10.2MP Digital Camera with 3x Optical Zoom and 2.7 inch LCD (Blue)","manufacturer":"Samsung","currency":"USD","price":"74.99"}
+
+ 5279 {"title":"Samsung SL202 10.2MP Digital Camera with 3x Optical Zoom and 2.7 inch LCD (Grey)","manufacturer":"Samsung","currency":"USD","price":"89.99"}
+
+ 5280 {"title":"Samsung SL202 10.2MP Digital Camera with 3x Optical Zoom and 2.7 inch LCD (Grey)","manufacturer":"Samsung","currency":"USD","price":"179.00"}
+
+ 5749 {"title":"Samsung SL202 10MP Digital Camera with 3x Optical Zoom and 2.7 inch LCD (Silver)","manufacturer":"Samsung","currency":"USD","price":"62.85"}
+
+ 5750 {"title":"Samsung SL202 10MP Digital Camera with 3x Optical Zoom and 2.7 inch LCD (Silver)","manufacturer":"Samsung","currency":"USD","price":"87.98"}
+
+ 5751 {"title":"Samsung SL202 10MP Digital Camera with 3x Optical Zoom and 2.7 inch LCD (Silver)","manufacturer":"Samsung","currency":"USD","price":"357.75"}
+
+ 5962 {"title":"Samsung SL202 10MP Digital Camera with 3x Optical Zoom and 2.7 inch LCD","manufacturer":"Samsung","currency":"USD","price":"63.00"}
+
+ 5963 {"title":"Samsung SL202 10MP Digital Camera with 3x Optical Zoom and 2.7 inch LCD","manufacturer":"Samsung","currency":"USD","price":"100.00"}
+
+ 6589 {"title":"Samsung SL202 10MP Digital Camera with 3x Optical Zoom and 2.7 inch LCD (Black)","manufacturer":"Samsung","currency":"USD","price":"79.99"}
+
+ 6590 {"title":"Samsung SL202 10MP Digital Camera with 3x Optical Zoom and 2.7 inch LCD (Black)","manufacturer":"Samsung","currency":"USD","price":"125.00"}
+
+Consulting the Samsung manual for the SL202:
+
+[Samsung SL202 Manual](http://downloadcenter.samsung.com/content/EM/200909/20090930161854843/SL202_QSM_SEA_V.1.2_090916.pdf)
+
+seems to suggest that there is only a single version of the SL202 (without further model qualifiers) with 10.2 megapixels.
