@@ -118,8 +118,7 @@ Based on this information, it would appear that in the worst case, this algorith
 1292544  listings ~93   seconds
 2585088  listings java.lang.OutOfMemoryError: Java heap space  listings is now 407MB
 
-Reference-style: 
-![Runtime][https://github.com/RobertElderSoftware/SortableCodingChallenge/runtime.png]
+![Runtime][https://github.com/RobertElderSoftware/SortableCodingChallenge/blob/master/runtime.png]
 
 Note that at around 407MB of listings the JVM ran out of memory. The current implementation uses a linear amount of memory (which is not strictly necessary) but provides good run time performance.
 
