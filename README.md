@@ -106,19 +106,26 @@ Worst case performance of Java's HashMap insertion appears to be implementation 
 
 appears to use a linear time collision resolution.
 
-Based on this information, it would appear that in the worst case, this algorithm scales in O(n^2) where n is the number of products, however since a large number of hash collisions seems to be rare, the average complexity is closer to O(n).
+Based on this information, it would appear that in the worst case, this algorithm scales in O(n^2) where n is the number of products, however since a large number of hash collisions seems to be rare, the average complexity is much closer to O(n).
 
 2)  Just like for products, a linear increase in the number of products should case a linear increase in the number of hashmap lookups, and other constant time operations.
 
  An empirical test shows that the run time scales linearly (almost directly proportional) to the number of listings.
 
  20196   listings ~2.2  seconds
+
  40392   listings ~3.7  seconds
+
  80784   listings ~6.4  seconds
+
 161568   listings ~12.5 seconds
+
 323136   listings ~23.5 seconds
+
 646272   listings ~47   seconds
+
 1292544  listings ~93   seconds
+
 2585088  listings java.lang.OutOfMemoryError: Java heap space  listings is now 407MB
 
 ![Runtime](https://github.com/RobertElderSoftware/SortableCodingChallenge/blob/master/runtime.png)
