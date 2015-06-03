@@ -88,8 +88,11 @@ can be made between these products, and a warning is issued.
 There are several main variables that will control the overall run-time performance of this algorithm.  They are
 
 1)  The number of products
+
 2)  The number of listings
+
 3)  The degree of fragmentation within product categories
+
 4)  Regexes.
 
 
